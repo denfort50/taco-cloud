@@ -3,7 +3,7 @@ package ru.dkalchenko.tacocloud.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -26,14 +26,10 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("tacoOrder")
+@AllArgsConstructor
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
-
-    @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
 
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
         return ingredients

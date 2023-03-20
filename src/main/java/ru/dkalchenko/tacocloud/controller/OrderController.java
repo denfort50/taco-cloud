@@ -1,7 +1,7 @@
 package ru.dkalchenko.tacocloud.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +18,10 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
+@AllArgsConstructor
 public class OrderController {
 
     private final OrderRepository orderRepository;
-
-    @Autowired
-    public OrderController(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
 
     @GetMapping("/current")
     public String orderForm() {
