@@ -2,3 +2,11 @@ spring:
   datasource:
     generate-unique-name: false
     name: tacocloud
+  security:
+    oauth2:
+      client:
+        registration:
+          <oauth2 or openid provider name>:
+            clientId: <client id>
+            clientSecret: <client secret>
+            scope: <comma-separated list of requested scopes>
