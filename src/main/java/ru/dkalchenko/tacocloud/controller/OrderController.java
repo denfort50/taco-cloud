@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.dkalchenko.tacocloud.model.TacoOrder;
-import ru.dkalchenko.tacocloud.repository.OrderRepository;
+import ru.dkalchenko.tacocloud.service.OrderService;
 
 import javax.validation.Valid;
 
@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class OrderController {
 
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
 
     @GetMapping("/current")
     public String orderForm() {
@@ -33,7 +33,7 @@ public class OrderController {
         if (errors.hasErrors()) {
             return "orderForm";
         }
-        orderRepository.save(order);
+        orderService.save(order);
         sessionStatus.setComplete();
         return "redirect:/";
     }

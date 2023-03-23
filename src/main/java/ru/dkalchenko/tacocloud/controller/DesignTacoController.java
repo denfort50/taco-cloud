@@ -18,7 +18,7 @@ import ru.dkalchenko.tacocloud.model.Ingredient;
 import ru.dkalchenko.tacocloud.model.Ingredient.Type;
 import ru.dkalchenko.tacocloud.model.Taco;
 import ru.dkalchenko.tacocloud.model.TacoOrder;
-import ru.dkalchenko.tacocloud.repository.IngredientRepository;
+import ru.dkalchenko.tacocloud.service.IngredientService;
 
 import javax.validation.Valid;
 
@@ -29,7 +29,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 public class DesignTacoController {
 
-    private final IngredientRepository ingredientRepository;
+    private final IngredientService ingredientService;
 
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
         return ingredients
@@ -40,7 +40,7 @@ public class DesignTacoController {
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = ingredientRepository.findAll();
+        List<Ingredient> ingredients = ingredientService.findAll();
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
