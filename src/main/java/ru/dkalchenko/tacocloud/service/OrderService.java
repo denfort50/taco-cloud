@@ -1,21 +1,22 @@
 package ru.dkalchenko.tacocloud.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import ru.dkalchenko.tacocloud.model.Person;
 import ru.dkalchenko.tacocloud.model.TacoOrder;
 import ru.dkalchenko.tacocloud.repository.OrderRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class OrderService {
 
     private final OrderRepository orderRepository;
-
-    public void save(TacoOrder tacoOrder) {
-        orderRepository.save(tacoOrder);
-    }
 
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteAllOrders() {
@@ -24,6 +25,18 @@ public class OrderService {
 
     @PostAuthorize("hasRole('ADMIN') || returnObject.person.username == authentication.name")
     public TacoOrder getOrder(long id) {
-        return orderRepository.findTacoOrderById(id).orElseThrow();
+        return findTacoOrderById(id).orElseThrow();
+    }
+
+    public void save(TacoOrder tacoOrder) {
+        orderRepository.save(tacoOrder);
+    }
+
+    public Optional<TacoOrder> findTacoOrderById(long id) {
+        return orderRepository.findTacoOrderById(id);
+    }
+
+    public List<TacoOrder> findByPersonOrderByPlacedAtDesc(Person person, Pageable pageable) {
+        return orderRepository.findByPersonOrderByPlacedAtDesc(person, pageable);
     }
 }
