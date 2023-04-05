@@ -13,6 +13,10 @@ public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
 
+    public void save(Ingredient ingredient) {
+        ingredientRepository.save(ingredient);
+    }
+
     public List<Ingredient> findAll() {
         return ingredientRepository.findAll();
     }
