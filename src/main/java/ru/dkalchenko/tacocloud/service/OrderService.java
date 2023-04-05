@@ -28,8 +28,8 @@ public class OrderService {
         return findTacoOrderById(id).orElseThrow();
     }
 
-    public void save(TacoOrder tacoOrder) {
-        orderRepository.save(tacoOrder);
+    public TacoOrder save(TacoOrder tacoOrder) {
+        return orderRepository.save(tacoOrder);
     }
 
     public Optional<TacoOrder> findTacoOrderById(long id) {
@@ -38,5 +38,13 @@ public class OrderService {
 
     public List<TacoOrder> findByPersonOrderByPlacedAtDesc(Person person, Pageable pageable) {
         return orderRepository.findByPersonOrderByPlacedAtDesc(person, pageable);
+    }
+
+    public Optional<TacoOrder> findById(Long id) {
+        return orderRepository.findById(id);
+    }
+
+    public void deleteById(Long id) {
+        orderRepository.deleteById(id);
     }
 }
