@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import ru.dkalchenko.tacocloud.config.OrderProps;
+import ru.dkalchenko.tacocloud.config.OrderProperties;
 import ru.dkalchenko.tacocloud.model.Person;
 import ru.dkalchenko.tacocloud.model.TacoOrder;
 import ru.dkalchenko.tacocloud.service.OrderService;
@@ -29,7 +29,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    private final OrderProps orderProps;
+    private final OrderProperties orderProperties;
 
     @GetMapping("/current")
     public String orderForm() {
@@ -50,7 +50,7 @@ public class OrderController {
 
     @GetMapping
     public String ordersForUser(@AuthenticationPrincipal Person person, Model model) {
-        Pageable pageable = PageRequest.of(0, orderProps.getPageSize());
+        Pageable pageable = PageRequest.of(0, orderProperties.getPageSize());
         model.addAttribute("orders", orderService.findByPersonOrderByPlacedAtDesc(person, pageable));
         return "orderList";
     }

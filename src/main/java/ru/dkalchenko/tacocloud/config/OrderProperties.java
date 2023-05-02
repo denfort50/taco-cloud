@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 @ConfigurationProperties(prefix = "taco.orders")
 @Data
 @Validated
-public class OrderProps {
+public class OrderProperties {
 
     @Min(value = 5, message = "Must be between 5 and 25")
     @Max(value = 25, message = "Must be between 5 and 25")
